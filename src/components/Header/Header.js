@@ -15,8 +15,9 @@ const Header = () => {
             <nav>
                 <Link to='/shop'>Shop</Link>
                 <Link to='/review'>Order Review</Link>
-                <Link to='/inventory'>Manage Inventory</Link>
-                <button onClick={()=>setLoggedInUser({})}>Sign out</button>
+                <Link to='/orders'>Order History</Link>
+                <a href="/">Welcome, {loggedInUser.name}</a>
+                {loggedInUser.email ? <button onClick={()=>setLoggedInUser({})}>Sign out</button>:<Link to="/login">Login</Link>}
             </nav>
         </div>
     );

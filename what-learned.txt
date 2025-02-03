@@ -1,61 +1,26 @@
- 43-2 create login route and set login form
-    useNavigate() hook of react-router-dom is used to navigate one route to another. It is like useHistory() hook.
-    import {useNavigate} form 'react-router-dom';
-    function App(){
-        const navigate = useNavigate();
-        const test = () => {
-            navigate('shipment');
-        }
-        return (
-            <div>
-            </div>
-        );
-    }
-
-43-3 create user context and set logged in user in context - Programming Hero Bangla Web Course
-
-43-4 Create Private Route and set auth Redirect_2
-
-43-9 Create Shipment Form using react-hook-form;
-    react-hook-form is used to handle form submitted data. 
-    install: npm install react-hook-form
-
-
-    for using this we need to import {useForm} from 'react-hook-form' and use register, handleSubmit, formState:{errors} from useForm(); hook
-
-    1. handleSubmit() is used to validate / handle form submitted data. 
-        it is used on onSubmit props. and arg is form event handler method.
-        ===> <form onSubmit={handleSubmit(onSubmit)} >
-                </form>
-    2. register() is use on input field. to give a field name and validator. 1st arg is field name and 2nd arg is validator obj
-
-    3. errors obj is used to handle form field errors. we can check any field if there has any error.
-    ===> {errors.field_name && <span>Custom Error Message</span>}
-    
+1. For verifing user email address we need to import sendEmailVerification() promise from firebase auth.
+and 1st arg is auth currentUser. 
     ===>
-        <input {...register('field_name', {required:true})} />
+        import {getAuth, sendEmailVerification} from 'firebase/auth';
+
+        const auth = getAuth();
+
+        sendEmailVerification(auth.currentUser)
+        .then(()=>{
+          console.log("verification email sended");
+        }).catch(error => {
+          console.log(error)
+        });
+
+2. For send Password Reset Email we need to import sendPasswordResetEmail() promise from firebase auth. 1st arg is auth and 2nd arg is email where will send mail.
     ===>
-    const Shipment = () => {
-    const {
-        register,
-        handleSubmit,
-        formState,
-      } = useForm();
-      const {errors}  = formState;
-      const [loggedInUser] = useContext(UserContext); 
-    console.log(errors);
-      const onSubmit = (data) => console.log('data',data)
-      return (
-        <form className='ship-form' onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name", { required: true })} defaultValue={loggedInUser.name} placeholder='Your Name'/>
-          {errors.name && <span className='error'>Name is required</span>}
-          <input {...register("email", { required: true })} defaultValue={loggedInUser.email}  placeholder='Your Email'/>
-          {errors.email && <span className='error'>Email is required</span>}
-          <input {...register("address", { required: true })} placeholder='Your Address'/>
-          {errors.address && <span className='error'>Address is required</span>}
-          <input {...register("phone", { required: true })} placeholder='Your Phone Number'/>
-          {errors.phone && <span className='error'>Phone Number is required</span>}
-          <input type="submit" />
-        </form>
-      )
-};
+        import {getAuth, sendPasswordResetEmail} from 'firebase/auth';
+
+        const auth = getAuth();
+
+        sendPasswordResetEmail(auth, email)
+        .then(()=>{
+          console.log("passoword reset email sended");
+        }).catch(error => {
+          console.log(error)
+        });      

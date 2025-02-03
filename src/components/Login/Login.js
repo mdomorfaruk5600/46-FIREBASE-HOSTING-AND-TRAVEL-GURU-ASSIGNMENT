@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../App';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CreateUserWithEmailAndPassword, handleFBSignIn, handleGoogleSignIn, handleSignOut, initializeLoginFrameWork, SignInWithEmailAndPassword } from './LoginManager';
+import { CreateUserWithEmailAndPassword, handleFBSignIn, handleGoogleSignIn, handleSignOut, initializeLoginFrameWork, resetPassword, SignInWithEmailAndPassword } from './LoginManager';
 
 
 function Login() {
@@ -84,6 +84,7 @@ function Login() {
           navigate(state.from);
         }
   }
+  
 
   return (
     <div className="App">
@@ -99,9 +100,6 @@ function Login() {
           <img src={user.photo} alt=''/>
         </div>
       }
-      <p>Name: {user.name}</p>
-      <p>Email: {user.email}</p>
-      <p>Password: {user.password}</p>
         <h1>Our Own Authentication</h1>
       <input type='checkbox' onChange={()=>setNewUser(!newUser)} name='newUser' id='newUser'/>
       <label htmlFor='newUser'>New User SignUp</label>
@@ -114,6 +112,7 @@ function Login() {
         <br/>
         <input type='submit' value= {newUser ? 'Sign Up':'Sign In'} />
       </form>
+      <button onClick={()=>resetPassword(user.email)}>Forget or Reset Password</button>
       <p style={{ color:'red' }}>{user.error}</p>
       {user.success && <p style={{color: 'green',
       }}>User {newUser ? 'Created' : 'Logged In' } Successfully</p>}

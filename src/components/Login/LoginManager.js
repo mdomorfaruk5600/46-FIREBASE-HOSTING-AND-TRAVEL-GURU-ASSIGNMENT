@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import { createUserWithEmailAndPassword, FacebookAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, FacebookAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import firebaseConf from './firebase.config';
 
 
@@ -63,12 +63,14 @@ export const handleGoogleSignIn = () => {
   }
 
   export const CreateUserWithEmailAndPassword = (name, email, password) => {
-    return createUserWithEmailAndPassword(getAuth(), email, password)
+    const auth = getAuth();
+    return createUserWithEmailAndPassword(auth, email, password)
       .then(res => {
         const newUserInfo = res.user;
         newUserInfo.error = '';
         newUserInfo.success = true;
         updateUserName(name);
+        verifyEmail(auth);
         return newUserInfo;
       })
       .catch(error => {
@@ -107,5 +109,25 @@ const updateUserName = name => {
       console.log('Profile updated successfully!', res);
     }).catch(error => {
       console.log(error.message);
+    });
+  }
+
+  const verifyEmail = (auth) => {
+    sendEmailVerification(auth.currentUser)
+    .then(()=>{
+      console.log("mail sended");
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  export const resetPassword = email => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+    .then(()=>{
+      console.log('Reset mail sended');
+    })
+    .catch(error => {
+      console.log('error');
     });
   }

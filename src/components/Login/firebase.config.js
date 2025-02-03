@@ -1,11 +1,18 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAOmyMWVbe6QZqCtLtuPg9p5tFNlFzyAUQ",
-    authDomain: "ema-jhon-simple-5a85d.firebaseapp.com",
-    projectId: "ema-jhon-simple-5a85d",
-    storageBucket: "ema-jhon-simple-5a85d.firebasestorage.app",
-    messagingSenderId: "439205596521",
-    appId: "1:439205596521:web:0971fd6598905596d8c1f8",
-    measurementId: "G-PR43N35JVC"
+  apiKey: "AIzaSyDngUjV2A6UJ53YXEaE9dsg1bSiO8tMn1w",
+
+  authDomain: "fire-auth-775e1.firebaseapp.com",
+
+  projectId: "fire-auth-775e1",
+
+  storageBucket: "fire-auth-775e1.firebasestorage.app",
+
+  messagingSenderId: "685180112844",
+
+  appId: "1:685180112844:web:0d2938a7258dcd3cc55769",
+
+  measurementId: "G-R0QTP068SM"
+
   };
   
   export default firebaseConfig;
